@@ -1,0 +1,6 @@
+.DS_Store
+__*
+!__init__.py
+.idea/
+*.rtf
+
