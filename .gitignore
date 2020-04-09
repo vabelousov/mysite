@@ -1,6 +1,19 @@
+#  служебные файлы кроме __init__.py
 .DS_Store
 __*
 !__init__.py
-.idea/
-*.rtf
 
+#  отдельные конкретно указанные папки или файлы
+.idea/
+/static
+
+#  файлы медиа
+*.png
+*.jpg
+*.gif
+*.tif
+*.rtf
+*.doc
+*.doco
+*.xls
+*.xlsx
