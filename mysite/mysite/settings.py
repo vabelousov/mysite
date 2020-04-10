@@ -19,12 +19,18 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'a4!=6_9dj903*xn5pt0_23&w=&b!5)0ho+sg4y#j$ka=ui%)zu'
+# Dockerizing step 1
+# SECRET_KEY = 'a4!=6_9dj903*xn5pt0_23&w=&b!5)0ho+sg4y#j$ka=ui%)zu'
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# Dockerizing step 1
+# DEBUG = True
+DEBUG = int(os.environ.get("DEBUG", default=0))
 
-ALLOWED_HOSTS = []
+# Dockerizing step 1
+# ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
 
 SITE_ID = 1
 
@@ -75,16 +81,23 @@ TEMPLATES = [
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
 # Database
+# Dockerization step 2
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
 DATABASES = {
     'default': {
         #        'ENGINE': 'django.db.backends.sqlite3',
         #        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'blog',
-        'USER': 'blog',
-        'PASSWORD': 'Qwer12345^',
+        #'ENGINE': 'django.db.backends.postgresql',
+        #'NAME': 'blog',
+        #'USER': 'blog',
+        #'PASSWORD': 'Qwer12345^',
+        "ENGINE": os.environ.get("SQL_ENGINE", "django.db.backends.postgresql"),
+        "NAME": os.environ.get("SQL_DATABASE", "blog`"),
+        "USER": os.environ.get("SQL_USER", "blog`"),
+        "PASSWORD": os.environ.get("SQL_PASSWORD", "Qwer12345^"),
+        "HOST": os.environ.get("SQL_HOST", "localhost"),
+        "PORT": os.environ.get("SQL_PORT", "5432"),        
     }
 }
 
