@@ -1,0 +1,33 @@
+version: '3.7'
+
+services:
+  web:
+    build: ./mysite
+    command: uwsgi --ini mysite_uwsgi.ini # python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - static_volume:/static
+    ports:
+      - 8000:8000
+    env_file:
+      - ./.env.dev
+    depends_on:
+      - db
+  db:
+    image: postgres:12.1
+    volumes:
+      - postgres_data:/usr/local/var/postgres/
+    environment:
+      - POSTGRES_USER=blog
+      - POSTGRES_PASSWORD=Qwer12345^
+      - POSTGRES_DB=blog
+  nginx:
+    build: ./nginx
+    volumes:
+      - static_volume:/static    
+    ports:
+    - 1337:8000
+    depends_on:
+      - web
+volumes:
+  postgres_data:  
+  static_volume:    
