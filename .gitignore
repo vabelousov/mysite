@@ -5,7 +5,7 @@ __*
 
 #  отдельные конкретно указанные папки или файлы
 .idea/
-/static
+mysite/static
 .env.prod
 .env.prod.db
 .env.dev
